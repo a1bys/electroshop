@@ -39,6 +39,20 @@ public class EmployeeController
         return employeeService.findAll();
     }
 
+    // Получить топ сотрудников по количеству и сумме продаж за последний год
+    @GetMapping("/top-sales-last-year")
+    public List<EmployeeService.EmployeeSalesStats> getTopSalesLastYear()
+    {
+        return employeeService.findTopSalesLastYear();
+    }
+
+    // Лучший младший продавец-консультант по продажам умных часов за последний год
+    @GetMapping("/best-junior-smartwatch-sales")
+    public EmployeeService.EmployeeSalesStats getBestJuniorSmartwatchSalesLastYear()
+    {
+        return employeeService.findBestJuniorSmartwatchSalesLastYear();
+    }
+
     // получить сотрудников по id отдела
     @PutMapping("/{id}")
     public ResponseEntity<Employee> update(@PathVariable Integer id, @RequestBody Employee employee)
@@ -61,3 +75,4 @@ public class EmployeeController
         return ResponseEntity.noContent().build();
     }
 }
+

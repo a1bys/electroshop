@@ -81,4 +81,11 @@ public class PurchaseService
     {
         purchaseRepository.deleteById(id);
     }
+
+    public Double getCashSalesSumByStore(Long storeId)
+    {
+        // ВАЖНО: используйте точное название типа оплаты, как оно хранится в базе (например, "наличные")
+        String purchaseTypeName = "наличные";
+        return purchaseRepository.findCashSalesSumByStore(storeId, purchaseTypeName);
+    }
 }

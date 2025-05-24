@@ -14,32 +14,45 @@ public class PurchaseController
     private final PurchaseService purchaseService;
 
     @Autowired
-    public PurchaseController(PurchaseService purchaseService) {
+    public PurchaseController(PurchaseService purchaseService)
+    {
         this.purchaseService = purchaseService;
     }
 
     @GetMapping
-    public List<Purchase> getAllPurchases() {
+    public List<Purchase> getAllPurchases()
+    {
         return purchaseService.getAllPurchases();
     }
 
     @GetMapping("/{id}")
-    public Purchase getPurchaseById(@PathVariable Long id) {
+    public Purchase getPurchaseById(@PathVariable Long id)
+    {
         return purchaseService.getPurchaseById(id);
     }
 
     @PostMapping
-    public Purchase createPurchase(@RequestBody Purchase purchase) {
+    public Purchase createPurchase(@RequestBody Purchase purchase)
+    {
         return purchaseService.createPurchase(purchase);
     }
 
     @PutMapping("/{id}")
-    public Purchase updatePurchase(@PathVariable Long id, @RequestBody Purchase purchase) {
+    public Purchase updatePurchase(@PathVariable Long id, @RequestBody Purchase purchase)
+    {
         return purchaseService.updatePurchase(id, purchase);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePurchase(@PathVariable Long id) {
+    public void deletePurchase(@PathVariable Long id)
+    {
         purchaseService.deletePurchase(id);
+    }
+
+    // Получить сумму наличных продаж по магазину
+    @GetMapping("/cash-sum/{storeId}")
+    public Double getCashSalesSumByStore(@PathVariable Long storeId)
+    {
+        return purchaseService.getCashSalesSumByStore(storeId);
     }
 }
