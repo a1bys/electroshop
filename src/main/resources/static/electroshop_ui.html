@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ElectroShop</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+<div class="sidebar">
+    <h3>Разделы</h3>
+    <ul>
+        <li><a href="/products">Электротовары</a></li>
+        <li><a href="/purchases">Покупки</a></li>
+        <li><a href="/employees">Сотрудники</a></li>
+        <li class="dropdown" onclick="toggleDropdown()">
+            <span>Справочники ▾</span>
+            <ul class="dropdown-content" id="dropdown-menu">
+                <li><a href="/stores">Магазины</a></li>
+                <li><a href="/positions">Должности</a></li>
+                <li><a href="/product-types">Типы электроники</a></li>
+                <li><a href="/purchase-types">Типы покупки</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="content">
+    <div class="topbar">ElectroShop</div>
+    <a class="back-button" onclick="goBack()">← Назад</a>
+    <h2>Добро пожаловать в ElectroShop</h2>
+    <p>Выберите раздел в меню слева для продолжения.</p>
+
+    <h3>Импорт данных из csv-файла</h3>
+    <form action="/import" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit">Загрузить</button>
+    </form>
+</div>
+</body>
+</html>

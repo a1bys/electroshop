@@ -1,0 +1,126 @@
+body
+{
+    display: flex;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+.sidebar
+{
+    width: 250px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+.content
+{
+    flex-grow: 1;
+    padding: 30px;
+}
+.topbar
+{
+    background-color: #212529;
+    color: white;
+    padding: 15px 30px;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.table th, .table td
+{
+    vertical-align: middle;
+}
+.btn
+{
+    white-space: nowrap;
+}
+.dropdown
+{
+    cursor: pointer;
+}
+.dropdown-content
+{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+.dropdown.open .dropdown-content
+{
+    max-height: 500px;
+}
+.back-button
+{
+    margin-bottom: 15px;
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.back-button:hover
+{
+    background-color: #0056b3;
+}
+
+.parent123
+{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.namesOf
+{
+    grid-column: span 4 / span 4;
+    grid-column-start: 2;
+}
+
+.idOf
+{
+    grid-column-start: 2;
+    grid-row-start: 2;
+}
+
+.nameOf
+{
+    grid-column-start: 3;
+    grid-row-start: 2;
+}
+
+.addresOf
+{
+    grid-column-start: 4;
+    grid-row-start: 2;
+}
+
+.watchThis
+{
+    grid-column-start: 5;
+    grid-row-start: 2;
+}
+
+.buttonToAdd
+{
+    grid-column-start: 2;
+    grid-row-start: 3;
+}
+
+.importFromCSV
+{
+    grid-column: span 4 / span 4;
+    grid-column-start: 2;
+    grid-row-start: 4;
+}
+
+.chooseFile
+{
+    grid-column-start: 2;
+    grid-row-start: 5;
+}
+
+.detectedFile
+{
+    grid-column-start: 3;
+    grid-row-start: 5;
+}
