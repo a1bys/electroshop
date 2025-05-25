@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ElectroShop | Магазины</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+<body>
+<div class="topbar">
+    <div class="topbar-left">ElectroShop</div>
+    <div class="topbar-center">Home</div>
+</div>
+<div class="sidebar">
+    <h3>Разделы</h3>
+    <ul>
+        <li><a href="products.html">Электротовары</a></li>
+        <li><a href="purchases.html">Покупки</a></li>
+        <li><a href="employees.html">Сотрудники</a></li>
+        <li class="dropdown" onclick="toggleDropdown()">
+            <span>Справочники ▾</span>
+            <ul class="dropdown-content" id="dropdown-menu">
+                <li><a href="stores.html">Магазины</a></li>
+                <li><a href="positions.html">Должности</a></li>
+                <li><a href="product-types.html">Типы электроники</a></li>
+                <li><a href="purchase-types.html">Типы покупки</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="content" style="font-family: 'Times New Roman', Times, serif; font-size: 15px;">
+    <h3>Магазины</h3>
+    <table id="storesTable" border="1" style="margin-top:15px; width:100%; border-collapse:collapse; font-size: 15px; font-family: 'Times New Roman', Times, serif;">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Наименование магазина</th>
+                <th>Адрес магазина</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td><td>Магазин-Склад</td><td>г.Новосибирск, ул. Фабричная, д.2</td><td>Просмотреть</td>
+            </tr>
+            <tr>
+                <td>2</td><td>Филиал на Красном</td><td>г.Новосибирск, Красный проспект, д.13</td><td>Просмотреть</td>
+            </tr>
+            <tr>
+                <td>3</td><td>Филиал на Ленина</td><td>г.Новосибирск, ул. Ленина, д.44</td><td>Просмотреть</td>
+            </tr>
+            <tr>
+                <td>4</td><td>Филиал на Кирова</td><td>г.Новосибирск, ул. Кирова, д.10</td><td>Просмотреть</td>
+            </tr>
+            <tr>
+                <td>5</td><td>Филиал на Мичурина</td><td>г.Новосибирск, ул. Мичурина, д.12</td><td>Просмотреть</td>
+            </tr>
+            <tr>
+                <td>6</td><td>Филиал на Маркса</td><td>г.Новосибирск, площадь Карла Макрса, д.68</td><td>Просмотреть</td>
+            </tr>
+        </tbody>
+    </table>
+    <label for="csvFileInput" class="import-btn">Добавить</label>
+    <input type="file" id="csvFileInput" accept=".csv" style="display:none;">
+    <hr>
+    <div id="file-upload-container"></div>
+</div>
+<script src="script.js"></script>
+<script>
+fetch('file-upload.html')
+  .then(r => r.text())
+  .then(html => document.getElementById('file-upload-container').innerHTML = html);
+</script>
+</body>
+</html>

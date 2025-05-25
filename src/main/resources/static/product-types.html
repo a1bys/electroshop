@@ -1,0 +1,59 @@
+ <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ElectroShop | Типы электроники</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+<div class="topbar">
+    <div class="topbar-left">ElectroShop</div>
+    <div class="topbar-center">Типы электроники</div>
+</div>
+<div class="sidebar">
+    <h3>Разделы</h3>
+    <ul>
+        <li><a href="products.html">Электротовары</a></li>
+        <li><a href="purchases.html">Покупки</a></li>
+        <li><a href="employees.html">Сотрудники</a></li>
+        <li class="dropdown" onclick="toggleDropdown()">
+            <span>Справочники ▾</span>
+            <ul class="dropdown-content" id="dropdown-menu">
+                <li><a href="stores.html">Магазины</a></li>
+                <li><a href="positions.html">Должности</a></li>
+                <li><a href="product-types.html">Типы электроники</a></li>
+                <li><a href="purchase-types.html">Типы покупки</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="content" style="font-family: 'Times New Roman', Times, serif; font-size: 15px;">
+    <h3>Типы электроники</h3>
+    <table border="1" style="width:100%; border-collapse:collapse; font-size: 15px;">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>Наименование типа электроники</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr><td></td><td></td></tr>
+        <tr><td></td><td></td></tr>
+        <tr><td></td><td></td></tr>
+        <tr><td></td><td></td></tr>
+        <tr><td></td><td></td></tr>
+        </tbody>
+    </table>
+    <label for="csvFileInput" class="import-btn">Добавить</label>
+    <input type="file" id="csvFileInput" accept=".csv" style="display:none;">
+    <hr>
+    <div id="file-upload-container"></div>
+    <script>
+    fetch('file-upload.html')
+      .then(r => r.text())
+      .then(html => document.getElementById('file-upload-container').innerHTML = html);
+    </script>
+</div>
+</body>
+</html>

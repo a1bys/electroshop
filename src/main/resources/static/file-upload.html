@@ -1,0 +1,18 @@
+<table class="file-upload-table">
+    <tr>
+        <td colspan="2">
+            <form id="csv-upload-form" action="/import" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="csv-file-input" style="display:none;">
+                <button type="button" onclick="document.getElementById('csv-file-input').click();">Выбрать файл</button>
+                <button type="submit">Файл не выбран</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<script>
+    const fileInput = document.getElementById('csv-file-input');
+    const status = document.getElementById('file-upload-status');
+    fileInput.addEventListener('change', function() {
+        status.textContent = fileInput.files.length ? fileInput.files[0].name : 'Файл не выбран';
+    });
+</script>

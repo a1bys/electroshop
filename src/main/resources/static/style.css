@@ -5,30 +5,58 @@ body
     font-family: Arial, sans-serif;
     margin: 0;
 }
+
 .sidebar
 {
     width: 250px;
     background-color: #f8f9fa;
     padding: 20px;
     border-right: 1px solid #ddd;
+    margin-top: 60px;
 }
+
 .content
 {
     flex-grow: 1;
     padding: 30px;
+    margin-top: 60px;
 }
+
 .topbar
 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #212529;
     color: white;
     padding: 15px 30px;
     font-size: 18px;
     margin-bottom: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+.topbar-left
+{
+    position: absolute;
+    left: 30px;
+    text-align: left;
+}
+.topbar-center
+{
+    font-weight: bold;
+    text-align: center;
+}
+.topbar-right {
+    display: none;
 }
 .table th, .table td
 {
     vertical-align: middle;
 }
+
 .btn
 {
     white-space: nowrap;
@@ -47,80 +75,23 @@ body
 {
     max-height: 500px;
 }
-.back-button
+
+.import-btn
 {
-    margin-bottom: 15px;
     display: inline-block;
+    margin-top: 15px;
     padding: 8px 16px;
     background-color: #007bff;
     color: white;
-    text-decoration: none;
+    border: none;
     border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    transition: background 0.2s;
 }
-.back-button:hover
+.import-btn:hover
 {
     background-color: #0056b3;
-}
-
-.parent123
-{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 8px;
-}
-
-.namesOf
-{
-    grid-column: span 4 / span 4;
-    grid-column-start: 2;
-}
-
-.idOf
-{
-    grid-column-start: 2;
-    grid-row-start: 2;
-}
-
-.nameOf
-{
-    grid-column-start: 3;
-    grid-row-start: 2;
-}
-
-.addresOf
-{
-    grid-column-start: 4;
-    grid-row-start: 2;
-}
-
-.watchThis
-{
-    grid-column-start: 5;
-    grid-row-start: 2;
-}
-
-.buttonToAdd
-{
-    grid-column-start: 2;
-    grid-row-start: 3;
-}
-
-.importFromCSV
-{
-    grid-column: span 4 / span 4;
-    grid-column-start: 2;
-    grid-row-start: 4;
-}
-
-.chooseFile
-{
-    grid-column-start: 2;
-    grid-row-start: 5;
-}
-
-.detectedFile
-{
-    grid-column-start: 3;
-    grid-row-start: 5;
 }
