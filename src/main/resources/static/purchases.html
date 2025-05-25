@@ -30,14 +30,14 @@
 </div>
 <div class="content" style="font-family: 'Times New Roman', Times, serif; font-size: 15px;">
     <h3>Покупки</h3>
-    <table border="1" style="width:100%; border-collapse:collapse; font-size: 15px;">
+    <table id="purchasesTable" border="1" style="width:100%; border-collapse:collapse; font-size: 15px;">
         <thead>
         <tr>
             <th>id</th>
             <th>id электротовара</th>
             <th>id сотрудника</th>
             <th>id магазина</th>
-            <th>Дата/время</th>
+            <th id="dateSortHeader" style="cursor:pointer; text-decoration:underline;">Дата/время &#8597;</th>
             <th>Тип покупки</th>
         </tr>
         </thead>
@@ -57,6 +57,103 @@
     fetch('file-upload.html')
       .then(r => r.text())
       .then(html => document.getElementById('file-upload-container').innerHTML = html);
+
+    // --- Сортировка по дате ---
+    const purchasesTable = document.getElementById('purchasesTable');
+    const dateSortHeader = document.getElementById('dateSortHeader');
+    let dateSortAsc = true;
+    dateSortHeader.addEventListener('click', function()
+    {
+        const tbody = purchasesTable.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+        rows.sort((a, b) => {
+            const dateA = new Date(a.children[4].textContent.trim());
+            const dateB = new Date(b.children[4].textContent.trim());
+            if (isNaN(dateA) && isNaN(dateB)) return 0;
+            if (isNaN(dateA)) return 1;
+            if (isNaN(dateB)) return -1;
+            return dateSortAsc ? dateA - dateB : dateB - dateA;
+        });
+        rows.forEach(row => tbody.appendChild(row));
+        dateSortAsc = !dateSortAsc;
+    });
+
+    // --- Проверка наличия товара при импорте ---
+    document.getElementById('csvFileInput').addEventListener('change', function()
+    {
+        const file = this.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const rows = e.target.result.trim().split('\n').map(line => line.split(','));
+            const tbody = purchasesTable.querySelector('tbody');
+            let errorShown = false;
+            rows.forEach(row =>
+            {
+                // row: [id, id_товара, id_сотрудника, id_магазина, дата, тип]
+                const productId = row[1];
+                // Поиск строки товара в таблице продуктов (products.html должен быть открыт в другом окне или данные должны быть на этой странице)
+                // Для примера ищем по id в таблице на странице, если она есть
+                let productTable = document.getElementById('productsTable');
+                let productCount = null;
+                if (productTable)
+                {
+                    for (let tr of productTable.querySelectorAll('tbody tr'))
+                    {
+                        if (tr.children[0] && tr.children[0].textContent.trim() === productId)
+                        {
+                            productCount = parseInt(tr.children[4].textContent.trim(), 10);
+                            break;
+                        }
+                    }
+                }
+                // Если не нашли таблицу или товар, разрешаем добавить (или можно запретить)
+                if (productCount === null)
+                {
+                    // Можно показать предупреждение, что не удалось проверить наличие
+                }
+                // Если товара нет
+                if (productCount === 0)
+                {
+                    if (!errorShown)
+                    {
+                        showTooltip('Товар с id ' + productId + ' отсутствует в наличии. Запись о покупке не добавлена.');
+                        errorShown = true;
+                    }
+                    return; // не добавляем строку
+                }
+                // Добавляем строку, если товар есть
+                const tr = document.createElement('tr');
+                for (let i = 0; i < 6; i++)
+                {
+                    const td = document.createElement('td');
+                    td.textContent = row[i] || '';
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr);
+            });
+        };
+        reader.readAsText(file);
+    });
+
+    // Всплывающая подсказка
+    function showTooltip(message)
+    {
+        let tooltip = document.createElement('div');
+        tooltip.textContent = message;
+        tooltip.style.position = 'fixed';
+        tooltip.style.top = '30px';
+        tooltip.style.left = '50%';
+        tooltip.style.transform = 'translateX(-50%)';
+        tooltip.style.background = '#dc3545';
+        tooltip.style.color = 'white';
+        tooltip.style.padding = '12px 24px';
+        tooltip.style.borderRadius = '6px';
+        tooltip.style.zIndex = 9999;
+        tooltip.style.fontSize = '16px';
+        document.body.appendChild(tooltip);
+        setTimeout(() => tooltip.remove(), 3500);
+    }
     </script>
 </div>
 </body>
