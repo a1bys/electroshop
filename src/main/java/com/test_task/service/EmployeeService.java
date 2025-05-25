@@ -92,7 +92,7 @@ public class EmployeeService
         return stats.stream()
                 .map(arr ->
                 {
-                    Integer empId = ((Number) arr[0]).intValue();
+                    Long empId = ((Number) arr[0]).longValue();
                     long count = ((Number) arr[1]).longValue();
                     double sum = arr[2] != null ? ((Number) arr[2]).doubleValue() : 0.0;
                     Employee emp = employeeRepository.findById(empId).orElse(null);
@@ -111,7 +111,7 @@ public class EmployeeService
         List<Object[]> stats = purchaseRepository.findEmployeeSmartwatchSalesStatsSince(fromDate, typeName);
         return stats.stream()
                 .map(arr -> {
-                    Integer empId = ((Number) arr[0]).intValue();
+                    Long empId = ((Number) arr[0]).longValue();
                     long count = ((Number) arr[1]).longValue();
                     Employee emp = employeeRepository.findById(empId).orElse(null);
                     if (emp != null && emp.getPosition() != null && positionName.equalsIgnoreCase(emp.getPosition().getName())) {

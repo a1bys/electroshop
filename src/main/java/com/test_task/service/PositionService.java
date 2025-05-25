@@ -9,28 +9,23 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PositionService
-{
+public class PositionService {
     @Autowired
     private PositionRepository positionRepository;
 
-    public Position create(Position position)
-    {
+    public Position create(Position position) {
         return positionRepository.save(position);
     }
 
-    public Optional<Position> findById(Long id)
-    {
+    public Optional<Position> findById(Long id) {
         return positionRepository.findById(id);
     }
 
-    public List<Position> findAll()
-    {
+    public List<Position> findAll() {
         return positionRepository.findAll();
     }
 
-    public Position update(Long id, Position updatedPosition)
-    {
+    public Position update(Long id, Position updatedPosition) {
         return positionRepository.findById(id)
                 .map(position ->
                 {
@@ -40,9 +35,7 @@ public class PositionService
                 .orElseThrow(() -> new RuntimeException("Position not found"));
     }
 
-    public void delete(Long id)
-    {
+    public void delete(Long id) {
         positionRepository.deleteById(id);
     }
 }
-

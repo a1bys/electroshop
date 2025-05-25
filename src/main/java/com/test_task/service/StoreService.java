@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StoreService
@@ -19,9 +18,10 @@ public class StoreService
         return storeRepository.save(store);
     }
 
-    public Optional<Store> getById(Long id)
+    public Store getById(Long id)
     {
-        return storeRepository.findById(id);
+        return storeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Store not found"));
     }
 
     public List<Store> getAll()
@@ -32,8 +32,7 @@ public class StoreService
     public Store update(Long id, Store store)
     {
         return storeRepository.findById(id)
-                .map(existingStore ->
-                {
+                .map(existingStore -> {
                     existingStore.setName(store.getName());
                     existingStore.setAddress(store.getAddress());
                     return storeRepository.save(existingStore);
@@ -44,16 +43,5 @@ public class StoreService
     public void delete(Long id)
     {
         storeRepository.deleteById(id);
-    }
-
-    public List<Store> getAllStores()
-    {
-        return storeRepository.findAll();
-    }
-
-    public Store getStoreById(Long id)
-    {
-        return storeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Store not found"));
     }
 }
