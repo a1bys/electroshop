@@ -23,7 +23,7 @@ public class ProductController
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getById(@PathVariable Integer id)
+    public ResponseEntity<Product> getById(@PathVariable Long id)
     {
         return productService.findById(id)
                 .map(ResponseEntity::ok)
@@ -37,7 +37,7 @@ public class ProductController
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable Integer id, @RequestBody Product product)
+    public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product product)
     {
         try
         {
@@ -50,7 +50,7 @@ public class ProductController
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id)
+    public ResponseEntity<Void> delete(@PathVariable Long id)
     {
         productService.delete(id);
         return ResponseEntity.noContent().build();

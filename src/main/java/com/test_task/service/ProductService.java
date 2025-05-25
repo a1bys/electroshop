@@ -19,7 +19,7 @@ public class ProductService
         return productRepository.save(product);
     }
 
-    public Optional<Product> findById(Integer id)
+    public Optional<Product> findById(Long id)
     {
         return productRepository.findById(id);
     }
@@ -29,7 +29,7 @@ public class ProductService
         return productRepository.findAll();
     }
 
-    public Product update(Integer id, Product updatedProduct)
+    public Product update(Long id, Product updatedProduct)
     {
         return productRepository.findById(id)
                 .map(product ->
@@ -45,7 +45,7 @@ public class ProductService
                 .orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
-    public void delete(Integer id)
+    public void delete(Long id)
     {
         productRepository.deleteById(id);
     }

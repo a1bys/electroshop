@@ -33,19 +33,19 @@ public class ProductTypeController
 
     @PostMapping
     public ResponseEntity<ProductType> createProductType(@RequestBody ProductType productType) {
-        ProductType createdProductType = productTypeService.createProductType(productType);
+        ProductType createdProductType = productTypeService.create(productType);
         return ResponseEntity.status(201).body(createdProductType);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductType> updateProductType(@PathVariable Long id, @RequestBody ProductType productType) {
-        ProductType updatedProductType = productTypeService.updateProductType(id, productType);
+        ProductType updatedProductType = productTypeService.update(id, productType);
         return ResponseEntity.ok(updatedProductType);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProductType(@PathVariable Long id) {
-        productTypeService.deleteProductType(id);
+        productTypeService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -30,16 +30,16 @@ public class PurchaseTypeController
 
     @PostMapping
     public PurchaseType createPurchaseType(@RequestBody PurchaseType purchaseType) {
-        return purchaseTypeService.createPurchaseType(purchaseType);
+        return purchaseTypeService.create(purchaseType);
     }
 
     @PutMapping("/{id}")
     public PurchaseType updatePurchaseType(@PathVariable Long id, @RequestBody PurchaseType purchaseType) {
-        return purchaseTypeService.updatePurchaseType(id, purchaseType);
+        return purchaseTypeService.update(id, purchaseType);
     }
 
     @DeleteMapping("/{id}")
     public void deletePurchaseType(@PathVariable Long id) {
-        purchaseTypeService.deletePurchaseType(id);
+        purchaseTypeService.delete(id);
     }
 }

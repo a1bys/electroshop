@@ -30,16 +30,16 @@ public class StoreController
 
     @PostMapping
     public Store createStore(@RequestBody Store store) {
-        return storeService.createStore(store);
+        return storeService.create(store);
     }
 
     @PutMapping("/{id}")
     public Store updateStore(@PathVariable Long id, @RequestBody Store store) {
-        return storeService.updateStore(id, store);
+        return storeService.update(id, store);
     }
 
     @DeleteMapping("/{id}")
     public void deleteStore(@PathVariable Long id) {
-        storeService.deleteStore(id);
+        storeService.delete(id);
     }
 }

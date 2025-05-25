@@ -34,19 +34,19 @@ public class PurchaseController
     @PostMapping
     public Purchase createPurchase(@RequestBody Purchase purchase)
     {
-        return purchaseService.createPurchase(purchase);
+        return purchaseService.create(purchase);
     }
 
     @PutMapping("/{id}")
     public Purchase updatePurchase(@PathVariable Long id, @RequestBody Purchase purchase)
     {
-        return purchaseService.updatePurchase(id, purchase);
+        return purchaseService.update(id, purchase);
     }
 
     @DeleteMapping("/{id}")
     public void deletePurchase(@PathVariable Long id)
     {
-        purchaseService.deletePurchase(id);
+        purchaseService.delete(id);
     }
 
     // Получить сумму наличных продаж по магазину

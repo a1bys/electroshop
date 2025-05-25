@@ -56,24 +56,4 @@ public class ProductTypeService
                 .orElseThrow(() -> new RuntimeException("Product type not found"));
     }
 
-    public ProductType createProductType(ProductType productType)
-    {
-        return productTypeRepository.save(productType);
-    }
-
-    public ProductType updateProductType(Long id, ProductType productType)
-    {
-        return productTypeRepository.findById(id)
-                .map(existingProductType ->
-                {
-                    existingProductType.setName(productType.getName());
-                    return productTypeRepository.save(existingProductType);
-                })
-                .orElseThrow(() -> new RuntimeException("Product type not found"));
-    }
-
-    public void deleteProductType(Long id)
-    {
-        productTypeRepository.deleteById(id);
-    }
 }

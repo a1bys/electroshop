@@ -60,28 +60,6 @@ public class PurchaseService
                 .orElseThrow(() -> new RuntimeException("Purchase not found"));
     }
 
-    public Purchase createPurchase(Purchase purchase)
-    {
-        return purchaseRepository.save(purchase);
-    }
-
-    public Purchase updatePurchase(Long id, Purchase purchase)
-    {
-        Purchase existingPurchase = purchaseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Purchase not found"));
-        existingPurchase.setProduct(purchase.getProduct());
-        existingPurchase.setEmployee(purchase.getEmployee());
-        existingPurchase.setStore(purchase.getStore());
-        existingPurchase.setTimestamp(purchase.getTimestamp());
-        existingPurchase.setPurchaseType(purchase.getPurchaseType());
-        return purchaseRepository.save(existingPurchase);
-    }
-
-    public void deletePurchase(Long id)
-    {
-        purchaseRepository.deleteById(id);
-    }
-
     public Double getCashSalesSumByStore(Long storeId)
     {
         // ВАЖНО: используйте точное название типа оплаты, как оно хранится в базе (например, "наличные")

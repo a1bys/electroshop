@@ -25,7 +25,7 @@ public class EmployeeController
 
     // получить сотрудника по id
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> getById(@PathVariable Integer id)
+    public ResponseEntity<Employee> getById(@PathVariable Long id)
     {
         return employeeService.findById(id)
                 .map(ResponseEntity::ok)
@@ -55,7 +55,7 @@ public class EmployeeController
 
     // получить сотрудников по id отдела
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> update(@PathVariable Integer id, @RequestBody Employee employee)
+    public ResponseEntity<Employee> update(@PathVariable Long id, @RequestBody Employee employee)
     {
         try
         {
@@ -69,7 +69,7 @@ public class EmployeeController
 
     // удалить сотрудника по id
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id)
+    public ResponseEntity<Void> delete(@PathVariable Long id)
     {
         employeeService.delete(id);
         return ResponseEntity.noContent().build();

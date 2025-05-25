@@ -56,26 +56,4 @@ public class StoreService
         return storeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Store not found"));
     }
-
-    public Store createStore(Store store)
-    {
-        return storeRepository.save(store);
-    }
-
-    public Store updateStore(Long id, Store store)
-    {
-        return storeRepository.findById(id)
-                .map(existingStore ->
-                {
-                    existingStore.setName(store.getName());
-                    existingStore.setAddress(store.getAddress());
-                    return storeRepository.save(existingStore);
-                })
-                .orElseThrow(() -> new RuntimeException("Store not found"));
-    }
-
-    public void deleteStore(Long id)
-    {
-        storeRepository.deleteById(id);
-    }
 }

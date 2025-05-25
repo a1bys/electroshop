@@ -23,7 +23,7 @@ public class PositionController
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Position> getById(@PathVariable Integer id)
+    public ResponseEntity<Position> getById(@PathVariable Long id)
     {
         return positionService.findById(id)
                 .map(ResponseEntity::ok)
@@ -37,7 +37,7 @@ public class PositionController
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Position> update(@PathVariable Integer id, @RequestBody Position position)
+    public ResponseEntity<Position> update(@PathVariable Long id, @RequestBody Position position)
     {
         try
         {
@@ -50,7 +50,7 @@ public class PositionController
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id)
+    public ResponseEntity<Void> delete(@PathVariable Long id)
     {
         positionService.delete(id);
         return ResponseEntity.noContent().build();

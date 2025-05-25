@@ -55,25 +55,4 @@ public class PurchaseTypeService
         return purchaseTypeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Purchase type not found"));
     }
-
-    public PurchaseType createPurchaseType(PurchaseType purchaseType)
-    {
-        return purchaseTypeRepository.save(purchaseType);
-    }
-
-    public PurchaseType updatePurchaseType(Long id, PurchaseType purchaseType)
-    {
-        return purchaseTypeRepository.findById(id)
-                .map(existingPurchaseType ->
-                {
-                    existingPurchaseType.setName(purchaseType.getName());
-                    return purchaseTypeRepository.save(existingPurchaseType);
-                })
-                .orElseThrow(() -> new RuntimeException("Purchase type not found"));
-    }
-
-    public void deletePurchaseType(Long id)
-    {
-        purchaseTypeRepository.deleteById(id);
-    }
 }
