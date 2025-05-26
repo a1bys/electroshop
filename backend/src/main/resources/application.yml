@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/electroshop
+    username: postgres
+    password: 1111
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui.html

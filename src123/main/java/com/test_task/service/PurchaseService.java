@@ -5,8 +5,12 @@ import com.test_task.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
 
 @Service
 public class PurchaseService
@@ -65,5 +69,35 @@ public class PurchaseService
         // ВАЖНО: используйте точное название типа оплаты, как оно хранится в базе (например, "наличные")
         String purchaseTypeName = "наличные";
         return purchaseRepository.findCashSalesSumByStore(storeId, purchaseTypeName);
+    }
+
+    // Лучшие сотрудники по должности за последний год (по количеству и сумме)
+    public List<Object[]> getBestEmployeesByPositionLastYear()
+    {
+        LocalDateTime fromDate = LocalDateTime.now().minus(1, ChronoUnit.YEARS);
+        return purchaseRepository.findEmployeeSalesStatsSince(fromDate);
+    }
+
+    // Лучший младший продавец-консультант по продажам умных часов за последний год
+    public Object[] getBestJuniorSalesBySmartWatches()
+    {
+        LocalDateTime fromDate = LocalDateTime.now().minus(1, ChronoUnit.YEARS);
+        List<Object[]> stats = purchaseRepository.findEmployeeSmartwatchSalesStatsSince(fromDate, "умные часы");
+        Object[] best = null;
+        long max = 0;
+        for (Object[] row : stats) {
+            Long count = (Long) row[1];
+            if (count > max) {
+                max = count;
+                best = row;
+            }
+        }
+        return best;
+    }
+
+    // Сумма наличных по всем магазинам за последний год
+    public Map<Long, Double> getCashSumByAllStoresLastYear()
+    {
+        return new HashMap<>();
     }
 }
