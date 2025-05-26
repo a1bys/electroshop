@@ -38,5 +38,33 @@
 
 ## Запуск проекта
 
-git clone https://github.com/a1bys/electroshop/electroshop.git
-cd electroshop
+### Backend (Spring Boot)
+1. Установите JDK 17 и PostgreSQL.
+2. В файле `backend/src/main/resources/application.yml` укажите параметры подключения к вашей базе данных.
+3. Перейдите в папку backend:
+   ```
+   cd backend
+   ```
+4. Соберите и запустите проект:
+   ```
+   ./mvnw clean package
+   ./mvnw spring-boot:run
+   ```
+5. API будет доступен по адресу: http://localhost:8080/api/
+
+### Frontend
+1. Перейдите в папку frontend.
+2. Откройте файл `electroshop_ui.html` через локальный сервер (например, Live Server или http-server).
+3. Все запросы к данным идут на backend по адресу http://localhost:8080/api/
+
+---
+
+## Структура репозитория
+
+- backend/ — Spring Boot backend (REST API, Java, Maven)
+- frontend/ — HTML, CSS, JS (клиентская часть)
+
+---
+
+## Swagger UI
+Документация API будет доступна по адресу: http://localhost:8080/swagger-ui.html

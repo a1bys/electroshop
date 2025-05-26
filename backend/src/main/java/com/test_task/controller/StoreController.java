@@ -19,13 +19,15 @@ public class StoreController
     }
 
     @GetMapping
-    public List<Store> getAllStores() {
-        return storeService.getAllStores();
+    public List<Store> getAllStores()
+    {
+        return storeService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Store getStoreById(@PathVariable Long id) {
-        return storeService.getStoreById(id);
+    public Store getStoreById(@PathVariable Long id)
+    {
+        return storeService.getById(id);
     }
 
     @PostMapping
