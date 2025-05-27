@@ -61,15 +61,6 @@
         </tr>
         </tbody>
     </table>
-    <label for="csvFileInput" class="import-btn">Добавить</label>
-    <input type="file" id="csvFileInput" accept=".csv" style="display:none;">
-    <hr>
-    <div id="file-upload-container"></div>
-    <script>
-    fetch('file-upload.html')
-      .then(r => r.text())
-      .then(html => document.getElementById('file-upload-container').innerHTML = html);
-    </script>
 </div>
 </body>
 </html>
