@@ -42,25 +42,14 @@
             <th>Описание</th>
         </tr>
         </thead>
-        <tbody>
-        <!-- Пример пустых строк для ввода/отображения -->
-        <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        <tr>
-            <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        </tbody>
     </table>
+    <div id="upload-controls" class="mb-4"></div>
 </div>
+<script src="file-upload-handler.js"></script>
+<script>
+    fetch('file-upload-handler.html')
+        .then(res => res.text())
+        .then(html => document.getElementById('upload-controls').innerHTML = html);
+</script>
 </body>
 </html>
