@@ -1,16 +1,20 @@
 package com.test_task.backend.service;
 
+import com.test_task.backend.dto.EmployeeDTO;
+import com.test_task.backend.dto.EmployeeSalesDTO;
+import com.test_task.backend.model.Employee;
 import com.test_task.backend.model.Purchase;
 import com.test_task.backend.repository.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Optional;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PurchaseService
@@ -64,40 +68,81 @@ public class PurchaseService
                 .orElseThrow(() -> new RuntimeException("Purchase not found"));
     }
 
-    public Double getCashSalesSumByStore(Long storeId)
-    {
-        // ВАЖНО: используйте точное название типа оплаты, как оно хранится в базе (например, "наличные")
-        String purchaseTypeName = "наличные";
-        return purchaseRepository.findCashSalesSumByStore(storeId, purchaseTypeName);
+    @Transactional(readOnly = true)
+    public List<EmployeeSalesDTO> getBestEmployeesByPosition(Long positionId) {
+        LocalDate yearAgo = LocalDate.now().minusYears(1);
+
+        // По количеству продаж
+        List<Object[]> quantityResults = purchaseRepository.findBestEmployeesByPositionAndQuantity(
+                positionId, yearAgo);
+
+        // По сумме продаж
+        List<Object[]> amountResults = purchaseRepository.findBestEmployeesByPositionAndAmount(
+                positionId, yearAgo);
+
+        return combineResults(quantityResults, amountResults);
     }
 
-    // Лучшие сотрудники по должности за последний год (по количеству и сумме)
-    public List<Object[]> getBestEmployeesByPositionLastYear()
-    {
-        LocalDateTime fromDate = LocalDateTime.now().minus(1, ChronoUnit.YEARS);
-        return purchaseRepository.findEmployeeSalesStatsSince(fromDate);
-    }
-
-    // Лучший младший продавец-консультант по продажам умных часов за последний год
-    public Object[] getBestJuniorSalesBySmartWatches()
-    {
-        LocalDateTime fromDate = LocalDateTime.now().minus(1, ChronoUnit.YEARS);
-        List<Object[]> stats = purchaseRepository.findEmployeeSmartwatchSalesStatsSince(fromDate, "умные часы");
-        Object[] best = null;
-        long max = 0;
-        for (Object[] row : stats) {
-            Long count = (Long) row[1];
-            if (count > max) {
-                max = count;
-                best = row;
-            }
+    @Transactional(readOnly = true)
+    public EmployeeDTO getBestJuniorConsultantSmartWatch() {
+        Object[] result = purchaseRepository.findBestJuniorConsultantSmartWatchSales();
+        if (result == null) {
+            return null;
         }
-        return best;
+
+        Employee employee = (Employee) result[0];
+        Long salesCount = (Long) result[1];
+
+        return new EmployeeDTO(employee, salesCount);
+    }
+
+    @Transactional(readOnly = true)
+    public BigDecimal getTotalCashPayments() {
+        return purchaseRepository.findTotalCashPayments();
     }
 
     // Сумма наличных по всем магазинам за последний год
     public Map<Long, Double> getCashSumByAllStoresLastYear()
     {
         return new HashMap<>();
+    }
+
+    private List<EmployeeSalesDTO> combineResults(List<Object[]> quantityResults, List<Object[]> amountResults)
+    {
+        Map<Employee, EmployeeSalesDTO> resultMap = new HashMap<>();
+
+        // Обработка результатов по количеству продаж
+        for (Object[] result : quantityResults)
+        {
+            Employee employee = (Employee) result[0];
+            Long quantity = (Long) result[1];
+            BigDecimal amount = (BigDecimal) result[2];
+
+            resultMap.put(employee, new EmployeeSalesDTO(employee, quantity, amount));
+        }
+
+        // Обработка результатов по сумме продаж
+        for (Object[] result : amountResults)
+        {
+            Employee employee = (Employee) result[0];
+            Long quantity = (Long) result[1];
+            BigDecimal amount = (BigDecimal) result[2];
+
+            if (resultMap.containsKey(employee))
+            {
+                EmployeeSalesDTO existing = resultMap.get(employee);
+                // Сравниваем сумму продаж
+                if (amount.compareTo(existing.getTotalAmount()) > 0)
+                {
+                    resultMap.put(employee, new EmployeeSalesDTO(employee, quantity, amount));
+                }
+            } else
+            {
+                resultMap.put(employee, new EmployeeSalesDTO(employee, quantity, amount));
+            }
+        }
+
+        // Сортируем по сумме продаж в порядке убывания
+        return resultMap.values().stream().sorted(Comparator.comparing(EmployeeSalesDTO::getTotalAmount).thenComparing(EmployeeSalesDTO::getTotalAmount).thenComparing(EmployeeSalesDTO::getQuantitySold).reversed()).collect(Collectors.toList());
     }
 }

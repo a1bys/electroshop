@@ -42,3 +42,67 @@
         };
         reader.readAsText(file);
     });
+
+    // Функция для загрузки лучших сотрудников по должности
+    function loadBestEmployees(positionId)
+    {
+        fetch('api/employees/best/${positionId}')
+            .then(response => response.json())
+            .then(data =>
+            {
+                const container = document.getElementById('bestEmployeesContainer');
+                container.innerHTML = ''; // Очистка предыдущих данных
+
+                data.forEach(employee =>
+                {
+                    container.innerHTML += '' +
+                        '<div class="employee-card">' +
+                            '<h3>${employee.employee.lastName} ${employee.employee.firstName}</h3>' +
+                            '<p>Количество продаж: ${employee.quantitySold}</p>' +
+                            '<p>Сумма продаж: ${employee.totalAmount}</p>' +
+                        '</div>';
+                });
+            });
+    }
+
+    // загрузка данных о лучшем младшем консультанте
+    function loadBestJuniorConsultant()
+    {
+        fetch('api/positions/best/junior-consultant')
+            .then(response => response.json())
+            .then(data =>
+            {
+                const container = document.getElementById('bestJuniorConsultantContainer');
+                if (data)
+                {
+                    container.innerHTML = '' +
+                        '<div class="employee-card">' +
+                        '<h3>Лучший младший консультант по продаже умных часов</h3>' +
+                        '<p>${data.employee.lastName} ${data.employee.firstName}</p>' +
+                        '<p>Продано умных часов: ${data.salesCount}</p>' +
+                        '</div>';
+                } else {
+                    container.innerHTML = '<p>Нет данных о продажах умных часов</p>';
+                }
+
+            })
+            .catch(error =>
+            {
+                console.error('Ошибка:', error);
+                document.getElementById('bestJuniorConsultantContainer').innerHTML = '<p>Ошибка при загрузке данных</p>';
+            });
+    }
+
+    // загрузка суммы продаж наличными
+    function loadCashPayments()
+    {
+        fetch('api/payments/cash')
+            .then(response => response.json())
+            .then(amount =>
+            {
+                document.getElementById('cashPaymentsContainer').innerHTML = '' +
+                    '<div class="cash-summary">' +
+                    '<p>${amount} руб.</p>'
+                    '</div>';
+            })
+    }

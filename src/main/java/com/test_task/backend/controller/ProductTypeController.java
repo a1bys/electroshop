@@ -6,10 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/product-types")
+@Tag(name = "Типы продуктов", description = "API для управления типами продуктов")
 public class ProductTypeController
 {
     private final ProductTypeService productTypeService;
@@ -20,6 +26,8 @@ public class ProductTypeController
         this.productTypeService = productTypeService;
     }
 
+    @Operation(summary = "Получить все типы продуктов")
+    @ApiResponse(responseCode = "200", description = "Список типов продуктов успешно получен")
     @GetMapping
     public ResponseEntity<List<ProductType>> getAllProductTypes()
     {
@@ -27,6 +35,9 @@ public class ProductTypeController
         return ResponseEntity.ok(productTypes);
     }
 
+    @Operation(summary = "Получить тип продукта по ID")
+    @ApiResponse(responseCode = "200", description = "Тип продукта успешно получен")
+    @ApiResponse(responseCode = "404", description = "Тип продукта не найден")
     @GetMapping("/{id}")
     public ResponseEntity<ProductType> getProductTypeById(@PathVariable Long id)
     {
@@ -34,6 +45,8 @@ public class ProductTypeController
         return ResponseEntity.ok(productType);
     }
 
+    @Operation(summary = "Создать новый тип продукта")
+    @ApiResponse(responseCode = "201", description = "Тип продукта успешно создан")
     @PostMapping
     public ResponseEntity<ProductType> createProductType(@RequestBody ProductType productType)
     {
@@ -42,6 +55,9 @@ public class ProductTypeController
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Обновить тип продукта по ID")
+    @ApiResponse(responseCode = "200", description = "Тип продукта успешно обновлен")
+    @ApiResponse(responseCode = "404", description = "Тип продукта не найден")
     public ResponseEntity<ProductType> updateProductType(@PathVariable Long id, @RequestBody ProductType productType)
     {
         ProductType updatedProductType = productTypeService.update(id, productType);
@@ -49,6 +65,9 @@ public class ProductTypeController
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Удалить тип продукта по ID")
+    @ApiResponse(responseCode = "204", description = "Тип продукта успешно удален")
+    @ApiResponse(responseCode = "404", description = "Тип продукта не найден")
     public ResponseEntity<Void> deleteProductType(@PathVariable Long id)
     {
         productTypeService.delete(id);

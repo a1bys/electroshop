@@ -29,15 +29,27 @@
     </ul>
 </div>
 <div class="content">
-    <h4>Выберите что-нибудь из раздела слева для продолжения</h4>
-    <h3>Импорт данных из csv-файла</h3>
-    <div id="file-upload-container"></div>
-    <script>
-        fetch('file-upload.html')
-            .then(r => r.text())
-            .then(html => document.getElementById('file-upload-container').innerHTML = html);
-    </script>
-    </div>
+    <h1>Статистика продаж</h1>
+
+    <section>
+        <h2>Лучшие сотрудники по должности</h2>
+        <select id="position-select" onchange="loadPositionData(this.value)">
+
+        </select>
+        <div id="bestEmployeesContainer"></div>
+    </section>
+
+    <section>
+        <h2>Лучший младший консультант</h2>
+        <div id="bestJuniorConsultantContainer"></div>
+    </section>
+
+    <section>
+        <h2>Статистика по продажам</h2>
+        <div id="cashPaymentsContainer"></div>
+    </section>
 </div>
+
+<script src="script.js"></script>
 </body>
 </html>
