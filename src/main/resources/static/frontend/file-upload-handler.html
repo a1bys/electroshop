@@ -1,16 +1,15 @@
-<!-- HTML-разметка кнопок и элементов отображения -->
 <div class="d-grid">
-    <button onclick="insertDataIntoTable()" class="btn" style="background-color: #60aef2; color: white;">
-        Вставить данные в таблицу
+    <button onclick="insertDataIntoTable()" class="btn" style="background-color: #60aef2; color:white">
+        Добавить
     </button>
 </div>
 
 <hr>
 
-<div class="mb-4">
+<div class="mb-3">
     <label class="btn btn-outline-secondary">
         Выбрать файл
-        <input id="fileInput" type="file" accept=".csv,.zip,.vcf,.vcs" hidden onchange="handleFileSelect(event)">
+        <input id="fileInput" type="file" accept=".csv, .zip,.vcf, .csv" hidden onchange="handleFileSelect(event)">
     </label>
     <span id="selectedFileName" class="ms-2 text-muted">Файл не выбран</span>
 </div>

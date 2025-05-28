@@ -41,14 +41,16 @@
             <th>Тип покупки</th>
         </tr>
         </thead>
-        <tbody>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        </tbody>
+        <tbody></tbody>
     </table>
+    <div id="upload-controls" class="mb-4"></div>
+    <script src="file-upload-handler.js"></script>
+    <script>
+        fetch('file-upload-handler.html')
+            .then(res => res.text())
+            .then(html => document.getElementById('upload-controls').innerHTML = html);
+    </script>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </body>
 </html>

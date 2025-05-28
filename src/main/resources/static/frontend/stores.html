@@ -39,27 +39,16 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>1</td><td>Магазин-Склад</td><td>г.Новосибирск, ул. Фабричная, д.2</td><td>Просмотреть</td>
-            </tr>
-            <tr>
-                <td>2</td><td>Филиал на Красном</td><td>г.Новосибирск, Красный проспект, д.13</td><td>Просмотреть</td>
-            </tr>
-            <tr>
-                <td>3</td><td>Филиал на Ленина</td><td>г.Новосибирск, ул. Ленина, д.44</td><td>Просмотреть</td>
-            </tr>
-            <tr>
-                <td>4</td><td>Филиал на Кирова</td><td>г.Новосибирск, ул. Кирова, д.10</td><td>Просмотреть</td>
-            </tr>
-            <tr>
-                <td>5</td><td>Филиал на Мичурина</td><td>г.Новосибирск, ул. Мичурина, д.12</td><td>Просмотреть</td>
-            </tr>
-            <tr>
-                <td>6</td><td>Филиал на Маркса</td><td>г.Новосибирск, площадь Карла Макрса, д.68</td><td>Просмотреть</td>
-            </tr>
-        </tbody>
+        <tbody></tbody>
     </table>
+    <div id="upload-controls" class="mb-4"></div>
+    <script src="file-upload-handler.js"></script>
+    <script>
+        fetch('file-upload-handler.html')
+            .then(res => res.text())
+            .then(html => document.getElementById('upload-controls').innerHTML = html);
+    </script>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </body>
 </html>
